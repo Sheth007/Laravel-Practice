@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewUserCreated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -19,7 +20,8 @@ class authentication extends Controller
         $value = User::create($data);
 
         if ($value) {
-            return view('welcome');
+            event(new NewUserCreated($value));
+            return redirect()->view('welcome');
         }
     }
 
