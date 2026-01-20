@@ -53,4 +53,10 @@ class authentication extends Controller
         Auth::logout();
         return redirect()->route('app');
     }
+
+    function displayData()
+    {
+        $User = User::paginate(3);
+        return view('admin', ['data' => $User]);
+    }
 }
